@@ -17,7 +17,7 @@ import numpy as np
 from array import array
 from datetime import datetime
  
-import tensorflow as tf
+#import tensorflow as tf
 import zipfile
 import wave, struct
 import audioop
