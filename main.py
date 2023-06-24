@@ -227,9 +227,10 @@ class Recorder(object):
         #self.sound.release()
         #self.sound.getCurrentPosition()
         #self.sound.getDuration()   
-        self.downsample()
         
- 
+        #self.downsample()
+        
+    '''
     def downsample(self):
         with open("rec_test1.wav", 'wb') as of:
             of.write(message['audio'])
@@ -244,7 +245,7 @@ class Recorder(object):
             af.writeframes(converted[0])
             af.close()
             audioFile.close()
-
+    '''
 
            
  
