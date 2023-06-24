@@ -29,7 +29,8 @@ try:
 except ImportError:
   # If not, fallback to use the TFLite interpreter from the full TF package.
   import tensorflow as tf
-
+  Interpreter = tf.lite.Interpreter
+  load_delegate = tf.lite.experimental.load_delegate
 
  
  
@@ -86,8 +87,8 @@ class Recorder(object):
             tflite_model = fid.read()    
 
         #interpreter = tf.lite.Interpreter('lite-model_yamnet_tflite_1.tflite')
-        interpreter = tf.lite.Interpreter(model_content=tflite_model)             
-        
+        #interpreter = tf.lite.Interpreter(model_content=tflite_model)             
+        interpreter = Interpreter(model_content=tflite_model) 
         
         
         ###################################################
