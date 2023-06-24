@@ -20,6 +20,17 @@ from datetime import datetime
 import tensorflow as tf
 import zipfile
 import wave, struct
+import audioop
+
+try:
+  # Import TFLite interpreter from tflite_runtime package if it's available.
+  from tflite_runtime.interpreter import Interpreter
+  from tflite_runtime.interpreter import load_delegate
+except ImportError:
+  # If not, fallback to use the TFLite interpreter from the full TF package.
+  import tensorflow as tf
+
+
  
  
 #if not os.path.isdir("/sdcard/kivyrecords/"):
@@ -215,9 +226,23 @@ class Recorder(object):
         #self.sound.release()
         #self.sound.getCurrentPosition()
         #self.sound.getDuration()   
+        self.downsample()
         
  
-
+    def downsample(self):
+        with open("rec_test1.wav", 'wb') as of:
+            of.write(message['audio'])
+            audioFile = wave.open("audioData_original.wav", 'r')
+            n_frames = audioFile.getnframes()
+            audioData = audioFile.readframes(n_frames)
+            originalRate = audioFile.getframerate()
+            af = wave.open('audioData.wav', 'w')
+            af.setnchannels(1)
+            af.setparams((1, 2, 16000, 0, 'NONE', 'Uncompressed'))
+            converted = audioop.ratecv(audioData, 2, 1, originalRate, 16000, None)
+            af.writeframes(converted[0])
+            af.close()
+            audioFile.close()
 
 
            
